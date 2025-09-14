@@ -1,0 +1,123 @@
+---
+title: "Gapminder visualization"
+author: "Sadaf Zuhra"
+date: "2024-09-23"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+# importing dataset
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(gapminder)
+df <- gapminder
+
+```
+
+## Scatter plot of GDP per capita vs Life Expectancy
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(gapminder)
+gapminder %>%
+  filter(year == 2007) %>%  # Filter for the year 2007
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) +
+  geom_point(alpha = 0.7) +  # Add points with some transparency
+  scale_x_log10() +  # Log scale for GDP
+  labs(title = "GDP per Capita vs Life Expectancy (2007)",
+       x = "GDP per Capita (log scale)",
+       y = "Life Expectancy",
+       color = "Continent",
+       size = "Population") +
+  theme_minimal() +  # Minimal theme for elegance
+  theme(text = element_text(size = 12))
+
+```
+# Line plot of Life Expectancy over time for a specific country
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+gapminder %>%
+  filter(country == "Japan") %>%  # Filter for Japan
+  ggplot(aes(x = year, y = lifeExp)) +
+  geom_line(color = "blue", size = 1) +  # Line for Life Expectancy
+  geom_point(size = 3) +  # Add points to the line
+  labs(title = "Life Expectancy in Japan (1952-2007)",
+       x = "Year",
+       y = "Life Expectancy") +
+  theme_light() +  # Light theme for clarity
+  theme(text = element_text(size = 12))
+```
+
+# Bar plot of average life expectancy by continent
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(ggplot2)
+library(gapminder)
+gapminder %>%
+  group_by(continent) %>%
+  summarize(avg_lifeExp = mean(lifeExp)) %>%
+  ggplot(aes(x = reorder(continent, avg_lifeExp), y = avg_lifeExp, fill = continent)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Life Expectancy by Continent",
+       x = "Continent",
+       y = "Average Life Expectancy") +
+  theme_classic() +  # Classic theme for a clean look
+  theme(text = element_text(size = 12), legend.position = "none") +
+  coord_flip()  # Flip coordinates for better readability
+
+```
+
+# Faceted plot of life expectancy over time by continent
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(ggplot2)
+library(gapminder)
+ggplot(gapminder, aes(x = year, y = lifeExp, color = country)) +
+  geom_line() +  # Line for each country
+  facet_wrap(~ continent) +  # Facet by continent
+  labs(title = "Life Expectancy Over Time by Continent",
+       x = "Year",
+       y = "Life Expectancy") +
+  theme_bw() # Black and white theme for clarity
+
+```
+
+# Boxplot of life expectancy by continent
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(ggplot2)
+library(gapminder)
+
+ggplot(gapminder, aes(x = continent, y = lifeExp, fill = continent)) +
+  geom_boxplot() +  # Boxplot for distribution
+  labs(title = "Life Expectancy Distribution by Continent",
+       x = "Continent",
+       y = "Life Expectancy") +
+  theme_minimal() +  # Minimal theme for elegance
+  theme(text = element_text(size = 12), legend.position = "none")
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+---
+title: "dplyr Basics"
+author: "Sadaf Zuhra"
+date: "2024-09-07"
+output: 
+  pdf_document: 
+    highlight: zenburn
+  html_document: 
+    highlight: zenburn
+    theme: journal
+---
+# dplyr Basics
+The five key dplyr functions
+that allow you to solve the vast majority of your data-manipulation
+challenges:
+
+* Pick observations by their values (filter()).
+* Reorder the rows (arrange()).
+* Pick variables by their names (select()).
+* Create new variables with functions of existing variables(mutate()).
+* Collapse many values down to a single summary (summarize()).
+
+These can all be used in conjunction with group_by(), which
+changes the scope of each function from operating on the entire
+dataset to operating on it group-by-group.
+## Filter Rows with filter()
+ 
+```{r filering_row, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+library(nycflights13)
+filter(flights, month == 1, day == 1)
+jan1 <- filter(flights, month == 1, day == 1)
+(dec25 <- filter(flights, month == 12, day == 25))
+
+```
+
+```{r filtering_rows_2, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+filter(flights, month == 11 | month == 12)
+nov_dec <- filter(flights, month %in% c(11, 12))
+
+```
+
+```{r filtering_rows_3, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+
+```
+## Arrange Rows with arrange()
+```{r arrange_function, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+arrange(flights, year, month, day)
+arrange(flights, desc(arr_delay))
+
+```
+## Select Columns with select()
+```{r select_function, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+select(flights, year, month, day)
+
+```
+
+```{r select_2, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+select(flights, year:day)
+
+```
+
+```{r select_3, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+select(flights, -(year:day))
+
+```
+
+```{r select_4, message=FALSE, warning=FALSE, paged.print=FALSE}
+select(flights, time_hour, air_time, everything())
+
+```
+
+```{r select_5, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+select(flights, contains("TIME"))
+```
+### change the name of column with rename()
+```{r rename_1, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+rename(flights, tail_num = tailnum)
+
+```
+## Add New Variables with mutate()
+```{r mutate_1, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+flights_sml <- select(flights, year:day, ends_with("delay"), distance, air_time)
+
+```
+  
+```{r mutate_2, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+mutate(flights_sml, gain = arr_delay - dep_delay, speed = distance / air_time * 60)
+
+```
+
+```{r mutate_3, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+mutate(flights_sml, gain = arr_delay - dep_delay, hours = air_time / 60, gain_per_hour = gain / hours)
+
+```
+
+```{r mutate_4, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+transmute(flights, gain = arr_delay - dep_delay, hours = air_time / 60, gain_per_hour = gain / hours)
+```
+
+## Grouped Summaries with summarize()
+```{r summarize_1, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+summarize(flights, delay = mean(dep_delay, na.rm = TRUE))
+```
+summarize() is not terribly useful unless we pair it with group_by().
+```{r summarize_2, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+by_day<- group_by(flights, year, month, day)
+summarize(by_day, delay = mean(dep_delay, na.rm = TRUE))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

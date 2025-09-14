@@ -1,0 +1,148 @@
+---
+title: "different types of plots"
+author: "Sadaf Zuhra"
+date: "2024-08-30"
+output: 
+  pdf_document: 
+    highlight: zenburn
+  html_document: 
+    highlight: zenburn
+    theme: journal
+---
+# Exploring Various Plot Types with ggplot2
+
+## abline plot
+
+```{r}
+library(ggplot2)
+data("iris")
+df <- iris
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour =Species ))+theme_classic()+geom_abline()
+
+```
+
+## area plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour = Species))+theme_classic()+geom_area()
+
+
+```
+
+## bin_2nd plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour = Species))+theme_classic()+geom_bin_2d()
+
+```
+
+## boxplot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour = Species))+theme_classic()+geom_boxplot()
+
+```
+## col_plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour = Species))+theme_classic()+geom_col()
+
+
+
+```
+
+## count plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_count()
+
+
+```
+
+## hex plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_hex()
+
+```
+
+## jitter plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_jitter()
+
+```
+
+## line plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_line()
+
+```
+## point plot
+
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_point()
+
+```
+
+## polygon plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_polygon()
+
+```
+
+## smooth plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_smooth()
+
+```
+
+## step plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_step()
+
+```
+## tile plot 
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_tile()
+
+```
+## tufteboxplot
+```{r}
+library(ggplot2)
+library(ggthemes)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_tufteboxplot()
+
+```
+## voilin plot
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x=Sepal.Length, y=Sepal.Width,
+                                colour=Species))+ theme_classic()+geom_violin()
+
+```
+
+
+
+

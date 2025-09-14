@@ -1,0 +1,54 @@
+---
+title: "aesthetic mapping"
+author: "Sadaf Zuhra"
+date: "2024-09-05"
+output: 
+  pdf_document: 
+    highlight: zenburn
+  html_document: 
+    highlight: zenburn
+    theme: journal
+---
+
+## Creating a ggplot
+
+```{r}
+library(ggplot2)
+data(mpg)
+df <- mpg
+ggplot(data = df, mapping = aes(x = displ ,y =hwy)) +geom_point()
+
+```
+
+## Aesthetic mapping
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x = displ ,y =hwy, colour = class)) +geom_point()
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x = displ ,y =hwy, shape = class)) +geom_point()
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x = displ ,y =hwy, colour =   class)) +geom_point() +facet_wrap(~class , nrow = 2)
+
+```
+
+
+```{r}
+library(ggplot2)
+ggplot(data = df, mapping = aes(x = displ ,y =hwy, colour =   class)) +geom_point() +
+  facet_grid(drv ~ cyl)
+
+```
+
+
+
+
+
+

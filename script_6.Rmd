@@ -1,0 +1,54 @@
+---
+title: "Bar plot"
+author: "Sadaf Zuhra"
+date: "2024-09-06"
+output: 
+  pdf_document: 
+    highlight: zenburn
+  html_document: 
+    highlight: zenburn
+    theme: journal
+---
+
+# Creating bar plot using "diamond" dataset
+```{r}
+library(ggplot2)
+data("diamonds")
+df <- diamonds
+ggplot(data = df)+geom_bar(mapping = aes(x=cut))
+
+```
+
+## Position Adjustments
+
+```{r}
+library(ggplot2)
+ggplot(data = df)+geom_bar(mapping = aes(x=cut , colour = cut))
+ggplot(data = df)+geom_bar(mapping = aes(x = cut, fill = cut))
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = df)+geom_bar(mapping = aes(x = cut, fill = clarity))
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = df)+geom_bar(mapping = aes(x = cut, fill = clarity),position = "fill")
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = df)+geom_bar(mapping = aes(x = cut, fill = clarity),position = "dodge")
+
+```
+
+
+
+
+
+
+

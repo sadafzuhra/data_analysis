@@ -1,0 +1,86 @@
+---
+title: "Use of Pipe oprator"
+author: "Sadaf Zuhra"
+date: "2024-09-17"
+output: 
+  pdf_document: 
+    highlight: zenburn
+  html_document: 
+    highlight: zenburn
+    theme: journal
+---
+
+# Combining Multiple Operations with the Pipe
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+library(nycflights13)
+by_dest <- group_by(flights, dest)
+delay <- summarize(by_dest,
+ count = n(),
+  dist = mean(distance, na.rm = TRUE),
+ delay = mean(arr_delay, na.rm = TRUE))
+
+delay <- filter(delay, count > 20, dest != "HNL")
+
+```
+There’s another way to tackle the same problem with the pipe, %>%:
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+delays <- flights %>%
+ group_by(dest) %>%
+ summarize(
+ count = n(),
+ dist = mean(distance, na.rm = TRUE),
+ delay = mean(arr_delay, na.rm = TRUE)
+ ) %>%
+ filter(count >  20, dest != "HNL")
+
+```
+
+This focuses on the transformations, not what’s being transformed,
+which makes the code easier to read. You can read it as a series of
+imperative statements: group, then summarize, then filter. As sug‐
+gested by this reading, a good way to pronounce %>% when reading
+code is “then".
+# Missing Values
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+flights %>%
+ group_by(year, month, day) %>%
+ summarize(mean = mean(dep_delay))
+
+```
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+flights %>%
+ group_by(year, month, day) %>%
+ summarize(mean = mean(dep_delay, na.rm = TRUE))
+ 
+```
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+not_cancelled <- flights %>%
+ filter(!is.na(dep_delay), !is.na(arr_delay))
+
+```
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+not_cancelled %>%
+ group_by(year, month, day) %>%
+ summarize(mean = mean(dep_delay))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+

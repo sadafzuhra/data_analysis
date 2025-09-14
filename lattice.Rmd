@@ -1,0 +1,111 @@
+---
+title: "Lattice"
+author: "Sadaf Zuhra"
+date: "2024-09-27"
+output: 
+  pdf_document: 
+    highlight: zenburn
+  html_document: 
+    highlight: zenburn
+    theme: journal
+---
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(readxl)
+library(tidyverse)
+library(lattice)
+data("iris")
+
+```
+
+# Scatter plot----
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lattice)
+xyplot(Sepal.Length ~ Sepal.Width | Species, 
+       data = iris, 
+       main = "Sepal Length vs Width by Species",
+       xlab = "Sepal Width",
+       ylab = "Sepal Length",
+       auto.key = TRUE)
+```
+
+# Box plot----
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lattice)
+bwplot(Species ~ Sepal.Length, 
+       data = iris, 
+       main = "Box Plot of Sepal Length by Species",
+       xlab = "Species", 
+       ylab = "Sepal Length",
+       horizontal = TRUE)
+
+```
+
+# Histogram-----
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lattice)
+histogram(~ Petal.Length | Species, 
+          data = iris, 
+          main = "Histogram of Petal Length by Species",
+          xlab = "Petal Length",
+          layout = c(1, 3))
+
+```
+
+# Density plot----
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lattice)
+densityplot(~ Petal.Width | Species, 
+            data = iris, 
+            main = "Density Plot of Petal Width by Species",
+            xlab = "Petal Width",
+            plot.points = TRUE)
+
+```
+
+# Scatterplot matrix----
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lattice)
+splom(iris[1:4], 
+      groups = iris$Species,
+      main = "Scatterplot Matrix of Iris Measurements",
+      panel = panel.splom,
+      auto.key = list(space = "top", points = TRUE, lines = TRUE))
+
+
+```
+
+# Conditioning plot----
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lattice)
+xyplot(Petal.Length ~ Petal.Width | Species, 
+       data = iris, 
+       main = "Petal Length vs Width by Species",
+       xlab = "Petal Width",
+       ylab = "Petal Length",
+       type = c("p", "r"),  # points and regression line
+       layout = c(1, 3))
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
